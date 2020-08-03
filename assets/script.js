@@ -1,31 +1,43 @@
 // display current date on page
 $('#currentDay').text(moment().format('DD MMMM YYYY'));
+// create the currentHour variable
+let currentHour = moment().hours(); // where "hours" is the current hour in military time
+//console.log the current hour to make sure it works
+console.log('currentHour: ' + currentHour);
 
 // create an array of each hour in a day I want a "row" for
 const daysHours = [
-  '7am',
-  '8am',
-  '9am',
-  '10am',
-  '11am',
-  '12pm',
-  '1pm',
-  '2pm',
-  '3pm',
-  '4pm',
-  '5pm',
-  '6pm'
-]; // these are equal to "ha" when using moment.js
+  { displayH: '7am', militaryH: 7 },
+  { displayH: '8am', militaryH: 8 },
+  { displayH: '9am', militaryH: 9 },
+  { displayH: '10am', militaryH: 10 },
+  { displayH: '11am', militaryH: 11 },
+  { displayH: '12pm', militaryH: 12 },
+  { displayH: '1pm', militaryH: 13 },
+  { displayH: '2pm', militaryH: 14 },
+  { displayH: '3pm', militaryH: 15 },
+  { displayH: '4pm', militaryH: 16 },
+  { displayH: '5pm', militaryH: 17 },
+  { displayH: '6pm', militaryH: 18 }
+];
 
 // create a row with columns for each daysHours using a function for each singular hour
 daysHours.forEach (function (oneHour) {
   // created an hourDiv which is a row, with columns inside it.
-  const hourDiv = 
-  $(`<div class='row time-block'> 
-    <div class='col-1'>${oneHour}</div> 
-    <textarea class='col-10' value='${oneHour}'></textarea> 
-    <button class='saveBtn btn col-1></button> 
+  const hourDiv =
+    $(`<div class='row time-block'> 
+    <div class='col-1'>${oneHour.displayH}</div> 
+    <textarea class='col-10' value='${oneHour.militaryH}'></textarea> 
+    <button class='saveBtn btn col-1'></button> 
   </div>`);
+  // add classes for background color dependent on if it is the past present or future
+  if (currentHour === oneHour.militaryH) {
+    hourDiv.children("textarea").addClass("present");
+  } else if (currentHour > oneHour.militaryH) {
+    hourDiv.children("textarea").addClass("past");
+  } else if (currentHour < oneHour.militaryH) {
+    hourDiv.children("textarea").addClass("future");
+  }
   // append the hourDiv to the container
   $('.container').append(hourDiv);
 });
