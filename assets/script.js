@@ -27,7 +27,7 @@ daysHours.forEach (function (oneHour) {
   const hourDiv =
     $(`<div class='row time-block'> 
     <div class='col-1'>${oneHour.displayH}</div> 
-    <textarea class='col-10' value='${oneHour.militaryH}'></textarea> 
+    <textarea class='col-10 description'></textarea> 
     <button class='saveBtn btn col-1'><i class='fas fa-save fa-3x' src='./save-icon.png' /></button> 
   </div>`);
   // add classes for background color dependent on if it is the past present or future
@@ -39,13 +39,10 @@ daysHours.forEach (function (oneHour) {
     hourDiv.children("textarea").addClass("future");
   }
 
-  // saveBtn nonsense
-  // let textCont = localStorage.getItem("savedTextCont")
-  // $('.saveBtn').on('click', function() {
-  //   localStorage.setItm('savedTextCont', $("textarea").val(`${oneHour.militaryH}`));
-  // });
-  // $("textarea").val(textCont);
-
   // append the hourDiv to the container
   $('.container').append(hourDiv);
+});
+
+$(".saveBtn").on("click", function () {
+
 });
